@@ -1,0 +1,67 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type BingoGrid {
+  B: [Int!]!
+  G: [Int!]!
+  I: [Int!]!
+  N: [Int!]!
+  O: [Int!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type GameModuleModel {
+  entryFee: Float!
+  id: String!
+  name: String!
+  status: String!
+}
+
+type JoinLobbyResponse {
+  gameInstanceId: String!
+}
+
+type Mutation {
+  claimDeposit(transactionId: String!, userId: String!): Wallet!
+  deductGameFee(amount: Float!, gameInstanceId: String!, userId: String!): Transaction!
+  joinLobby(gameModuleId: String!): JoinLobbyResponse!
+  requestWithdrawal(amount: Float!, phone: String!, userId: String!): Transaction!
+}
+
+type Query {
+  getActiveGames: [GameModuleModel!]!
+  getMyTicket(gameId: String!): Ticket!
+  getWallet(userId: String!): Wallet!
+}
+
+type Ticket {
+  gameInstanceId: String!
+  gridDefinition: BingoGrid!
+  id: String!
+  userId: String!
+}
+
+type Transaction {
+  amount: Float!
+  balanceAfter: Float
+  createdAt: DateTime!
+  externalTxId: String
+  id: ID!
+  isClaimed: Boolean!
+  status: String!
+  type: String!
+  walletId: String!
+}
+
+type Wallet {
+  balance: Float!
+  id: ID!
+  updatedAt: DateTime!
+  userId: String!
+  wagerRequirementBalance: Float!
+}
